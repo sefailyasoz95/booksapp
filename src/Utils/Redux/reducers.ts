@@ -1,96 +1,53 @@
 import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
-import { RoomType, InitialState, MessageFrom, MessageType, UserType } from "../types";
-import { AIReplies } from "../constants";
-import { login } from "./actions";
+import { InitialState, BookType, DetailedBookType, APIResponseType } from "../types";
+import { getBookDetailsById, getBooks } from "./actions";
+import { HttpStatusCode } from "axios";
 const userInfo = localStorage.getItem("dontStoreUserInfoLikeThat");
 
 export const initialState: InitialState = {
 	error: false,
 	success: false,
 	message: "",
-	rooms: [],
+	books: [],
 	loading: false,
-	isAuthenticated: Boolean(userInfo),
-	user: userInfo ? JSON.parse(userInfo) : undefined,
-	currentMessages: undefined,
-	currentRoom: undefined,
+	bookDetail: undefined,
 };
 
 export const reducer = createSlice({
 	name: "global",
 	initialState,
-	reducers: {
-		logout: (state) => {
-			localStorage.removeItem("dontStoreUserInfoLikeThat");
-			localStorage.removeItem("rooms");
-			state.user = undefined;
-			state.isAuthenticated = false;
-			state.currentRoom = undefined;
-			state.rooms = [];
-		},
-		setCurrentRoom: (state, action: PayloadAction<MessageType>) => {
-			const newRoom: RoomType = {
-				id: new Date().getTime(),
-				title: `Chat on ${new Date().toDateString()}`,
-				messages: [action.payload],
-			};
-			state.currentRoom = newRoom;
-		},
-		createRoom: (state, action: PayloadAction<RoomType>) => {
-			const index = state.rooms.findIndex((room) => room.id === action.payload.id);
-			let _rooms: Array<RoomType> = [];
-			if (index < 0) {
-				_rooms = [...state.rooms, action.payload];
-			} else {
-				state.rooms[index] = { ...action.payload, id: new Date().getTime() };
-				_rooms = [...state.rooms];
-			}
-			localStorage.setItem("rooms", JSON.stringify(_rooms));
-			state.rooms = _rooms;
-		},
-		getRooms: (state) => {
-			const savedRooms = localStorage.getItem("rooms");
-			state.rooms = savedRooms ? JSON.parse(savedRooms) : [];
-		},
-		sendMessage: (state, action: PayloadAction<MessageType>) => {
-			const curMsg = state.currentRoom?.messages ?? [];
-			state.currentRoom = {
-				...state.currentRoom!,
-				messages: [...curMsg, action.payload],
-			};
-		},
-		getMessages: (state, action: PayloadAction<number>) => {
-			const _rooms = JSON.parse(localStorage.getItem("rooms") ?? "") ?? [];
-			const index = _rooms.findIndex((room: RoomType) => room.id === action.payload);
-			state.currentRoom = _rooms[index];
-		},
-		startNewChat: (state) => {
-			state.currentRoom = undefined;
-			const savedRooms = localStorage.getItem("rooms");
-			state.rooms = savedRooms ? JSON.parse(savedRooms) : [];
-		},
-	},
+	reducers: {},
 	extraReducers: (builder) => {
-		builder // *********** Login START *********** \\
-			.addCase(login.pending, (state) => {
+		builder // *********** Get Books START *********** \\
+			.addCase(getBooks.pending, (state) => {
 				state.loading = true;
 			})
-			.addCase(login.fulfilled, (state, action) => {
-				if (action.payload.status !== 400) {
-					localStorage.setItem("dontStoreUserInfoLikeThat", JSON.stringify(action.payload));
-					state.user = action.payload.data;
-					state.isAuthenticated = true;
-					state.message = "User Created Succesfully";
+			.addCase(getBooks.fulfilled, (state, action: PayloadAction<APIResponseType<Array<BookType>>>) => {
+				if (action.payload.status !== HttpStatusCode.BadRequest) {
+					state.books = action.payload.data;
 				} else {
-					state.message = "Something went wrong!";
 					state.error = true;
 				}
 				state.loading = false;
-				// *********** Login END *********** \\
+				// *********** Get Books END *********** \\
+			})
+			// *********** Get Book Details By Id START *********** \\
+			.addCase(getBookDetailsById.pending, (state) => {
+				state.loading = true;
+				state.bookDetail = undefined;
+			})
+			.addCase(getBookDetailsById.fulfilled, (state, action: PayloadAction<APIResponseType<DetailedBookType>>) => {
+				if (action.payload.status !== HttpStatusCode.BadRequest) {
+					state.bookDetail = action.payload.data;
+				} else {
+					state.error = true;
+				}
+				state.loading = false;
+				// *********** Get Book Details By Id END *********** \\
 			});
 	},
 });
 
-export const { logout, createRoom, getRooms, sendMessage, getMessages, startNewChat, setCurrentRoom } = reducer.actions;
+export const {} = reducer.actions;
 
 export default reducer.reducer;
