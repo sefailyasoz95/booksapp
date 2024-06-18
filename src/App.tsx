@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Provider } from "react-redux";
+import store from "./Utils/Redux/store";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import HomePage from "./Pages/HomePage";
+import NotFoundPage from "./Pages/NotFoundPage";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Provider store={store}>
+			<BrowserRouter>
+				<Routes>
+					<Route path={`/`} element={<HomePage />} />
+					<Route path='*' element={<NotFoundPage />} />
+				</Routes>
+			</BrowserRouter>
+			<ToastContainer
+				position='top-right'
+				autoClose={3000}
+				hideProgressBar
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				pauseOnHover
+				theme='dark'
+				transition={Slide}
+			/>
+		</Provider>
+	);
 }
 
 export default App;
