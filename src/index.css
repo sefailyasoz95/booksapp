@@ -32,12 +32,3 @@ code {
 .standart-transition {
   @apply transition-all ease-in-out duration-300
 }
-.book-inner-container {
-  @apply relative
-}
-.absolute-modal {
-  @apply -z-20 opacity-0 flex flex-col items-center justify-end bg-[rgba(0,0,0,0.1)] absolute flex-1 w-full h-full
-}
-.book-inner-container:hover > .absolute-modal {
-  @apply z-20 opacity-100
-}

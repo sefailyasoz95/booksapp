@@ -1,5 +1,5 @@
 import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
-import { InitialState, BookType, DetailedBookType, APIResponseType } from "../types";
+import { InitialState, BookType, DetailedBookType, APIResponseType, ShoppingCartItemType } from "../types";
 import { getBookDetailsById, getBooks } from "./actions";
 import { HttpStatusCode } from "axios";
 const userInfo = localStorage.getItem("dontStoreUserInfoLikeThat");
@@ -11,12 +11,26 @@ export const initialState: InitialState = {
 	books: [],
 	loading: false,
 	bookDetail: undefined,
+	shoppingCart: [],
 };
 
 export const reducer = createSlice({
 	name: "global",
 	initialState,
-	reducers: {},
+	reducers: {
+		addItemToCart: (state, action: PayloadAction<ShoppingCartItemType>) => {
+			const isExist = state.shoppingCart.findIndex((item) => item.item.id === action.payload.item.id);
+			if (isExist > -1) {
+				state.shoppingCart[isExist].quantity = state.shoppingCart[isExist].quantity + action.payload.quantity;
+			} else {
+				state.shoppingCart = [...state.shoppingCart, action.payload];
+			}
+		},
+		deleteItemFromCart: (state, action: PayloadAction<string>) => {
+			const filtered = state.shoppingCart.filter((item) => item.item.id !== action.payload);
+			state.shoppingCart = filtered;
+		},
+	},
 	extraReducers: (builder) => {
 		builder // *********** Get Books START *********** \\
 			.addCase(getBooks.pending, (state) => {
@@ -48,6 +62,6 @@ export const reducer = createSlice({
 	},
 });
 
-export const {} = reducer.actions;
+export const { addItemToCart, deleteItemFromCart } = reducer.actions;
 
 export default reducer.reducer;

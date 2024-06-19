@@ -1,13 +1,9 @@
-import React from "react";
-
+import { motion } from "framer-motion";
+import { ArrowPathIcon } from "@heroicons/react/24/solid";
 type Props = {};
 
 const Loading = (props: Props) => {
-	return (
-		<div className='fixed z-40 bg-gray-800 bg-opacity-50 left-0 top-0 flex w-screen h-screen items-center justify-center'>
-			<span className='animate-pulse text-4xl font-bold text-green-500'>Loading</span>
-		</div>
-	);
+	return <ArrowPathIcon className='animate-spin text-4xl w-10 h-10' />;
 };
 
 export default Loading;

@@ -29,7 +29,10 @@ export type DetailedBookType = {
 	url: string;
 	download: string;
 };
-
+export type ShoppingCartItemType = {
+	item: BookType;
+	quantity: number;
+};
 export type InitialState = {
 	loading: boolean;
 	message: string;
@@ -37,4 +40,5 @@ export type InitialState = {
 	success: boolean;
 	books: Array<BookType>;
 	bookDetail?: DetailedBookType;
+	shoppingCart: Array<ShoppingCartItemType>;
 };
