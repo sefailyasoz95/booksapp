@@ -13,20 +13,20 @@ const Footer = (props: Props) => {
 				ease: "easeInOut",
 			}}
 			className='lg:w-10/12 w-11/12 my-5 rounded-2xl bg-white drop-shadow-lg mx-auto'>
-			<div className='w-full rounded-2xl flex flex-row items-center justify-between px-5 py-2'>
+			<div className='w-full rounded-2xl xl:text-lg text-sm flex flex-row items-center justify-between px-5 py-2'>
 				<div className='group cursor-pointer'>
-					<span className='font-semibold text-lg'>By Sefa İlyas Öz</span>
+					<span className='font-semibold'>By Sefa İlyas Öz</span>
 					<div className='h-0.5 w-0 group-hover:w-full transition-all bg-black'></div>
 				</div>
 				<div className='flex flex-row items-center gap-x-2'>
 					<div className='group cursor-pointer'>
-						<a className='font-semibold text-lg' href='https://linkedin.com/in/sefailyasoz' target='_blank'>
+						<a className='font-semibold' href='https://linkedin.com/in/sefailyasoz' target='_blank'>
 							LinkedIn
 						</a>
 						<div className='h-0.5 w-0 group-hover:w-full transition-all bg-black'></div>
 					</div>
 					<div className='group cursor-pointer'>
-						<a className='font-semibold text-lg' href='https://github.com/sefailyasoz95' target='_blank'>
+						<a className='font-semibold' href='https://github.com/sefailyasoz95' target='_blank'>
 							GitHub
 						</a>
 						<div className='h-0.5 w-0 group-hover:w-full transition-all bg-black'></div>

@@ -30,6 +30,9 @@ export const reducer = createSlice({
 			const filtered = state.shoppingCart.filter((item) => item.item.id !== action.payload);
 			state.shoppingCart = filtered;
 		},
+		clearCartItems: (state) => {
+			state.shoppingCart = [];
+		},
 	},
 	extraReducers: (builder) => {
 		builder // *********** Get Books START *********** \\
@@ -63,6 +66,6 @@ export const reducer = createSlice({
 	},
 });
 
-export const { addItemToCart, deleteItemFromCart } = reducer.actions;
+export const { addItemToCart, deleteItemFromCart, clearCartItems } = reducer.actions;
 
 export default reducer.reducer;

@@ -19,7 +19,7 @@ const HomePage = (props: Props) => {
 	}, [loading, error, success]);
 
 	return (
-		<div className='w-7xl h-screen flex items-center flex-col h-fit'>
+		<div className='w-7xl flex items-center flex-col h-fit'>
 			<motion.div
 				initial={{ opacity: 0, x: -150 }}
 				animate={{ opacity: 1, x: 0 }}

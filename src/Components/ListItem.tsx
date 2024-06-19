@@ -14,8 +14,8 @@ type Props = {
 
 const ListItem = ({ book, index }: Props) => {
 	const { books, loading, shoppingCart } = useAppSelector((state) => state.global);
-	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 	const { showToast } = useToast();
 	const quantityInCart = useMemo(() => {
 		const itemIndex = shoppingCart.findIndex((item) => item.item.id === book.id);

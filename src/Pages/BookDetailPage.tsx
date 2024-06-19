@@ -43,7 +43,7 @@ const BookDetailPage = (props: Props) => {
 				<span className='font-bold text-lg tracking-wide'>{bookDetail?.title}</span>
 				<div className='w-7 h-7' />
 			</div>
-			<img src={bookDetail?.image} className='h-1/3 object-contain aspect-square' />
+			<img src={bookDetail?.image} className='h-1/2 object-contain aspect-square' />
 			{bookDetail?.subtitle && (
 				<span>
 					<b>Subtitle: </b> {bookDetail?.subtitle}
