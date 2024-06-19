@@ -10,7 +10,7 @@ const BookListing = (props: Props) => {
 	const { books, loading } = useAppSelector((state) => state.global);
 	const dispatch = useAppDispatch();
 	useEffect(() => {
-		dispatch(getBooks());
+		books.length === 0 && dispatch(getBooks());
 	}, []);
 
 	return loading ? (
@@ -21,7 +21,7 @@ const BookListing = (props: Props) => {
 				duration: 0.8,
 				ease: "easeInOut",
 			}}
-			className='flex lg:w-10/12 w-11/12 mt-5 h-full drop-shadow-lg items-center justify-center bg-white rounded-2xl'>
+			className='flex lg:w-10/12 w-11/12 mt-5 h-screen drop-shadow-lg items-center justify-center bg-white rounded-2xl'>
 			<Loading />
 		</motion.div>
 	) : (

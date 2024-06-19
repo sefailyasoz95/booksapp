@@ -36,7 +36,8 @@ const ListItem = ({ book, index }: Props) => {
 	const handleQuantityIncrease = () => {
 		dispatch(addItemToCart({ item: book, quantity: 1 }));
 	};
-	const handleNavigate = () => navigate(`/book/${book.title.toLocaleLowerCase().replaceAll(" ", "-")}`);
+	const handleNavigate = () =>
+		navigate(`/book/${book.title.toLocaleLowerCase().replaceAll(" ", "-")}`, { state: book.id });
 	return (
 		<motion.div
 			className='xl:w-[30%] lg:w-[31%] md:w-[45%] w-[75%] h-96 xl:mx-3 self-center mx-1 my-2 rounded-lg'

@@ -1,16 +1,14 @@
 import { useEffect } from "react";
 import useToast from "../Utils/Hooks/useToast";
 import { motion } from "framer-motion";
-import { useAppDispatch, useAppSelector } from "../Utils/Redux/store";
+import { useAppSelector } from "../Utils/Redux/store";
 import { BookOpenIcon } from "@heroicons/react/24/solid";
 import BookListing from "../Components/BookListing";
-import Navbar from "../Components/Navbar";
+
 type Props = {};
 
 const HomePage = (props: Props) => {
 	const { showToast } = useToast();
-	const dispatch = useAppDispatch();
-
 	const { loading, error, success, message } = useAppSelector((state) => state.global);
 
 	useEffect(() => {
@@ -21,7 +19,7 @@ const HomePage = (props: Props) => {
 	}, [loading, error, success]);
 
 	return (
-		<div className='w-7xl h-screen flex items-center flex-col'>
+		<div className='w-7xl h-screen flex items-center flex-col h-fit'>
 			<motion.div
 				initial={{ opacity: 0, x: -150 }}
 				animate={{ opacity: 1, x: 0 }}

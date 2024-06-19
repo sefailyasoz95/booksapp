@@ -55,6 +55,7 @@ export const reducer = createSlice({
 					state.bookDetail = action.payload.data;
 				} else {
 					state.error = true;
+					state.message = "Something went wrong while getting the book details!";
 				}
 				state.loading = false;
 				// *********** Get Book Details By Id END *********** \\

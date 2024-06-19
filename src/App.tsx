@@ -8,6 +8,7 @@ import NotFoundPage from "./Pages/NotFoundPage";
 import BookDetailPage from "./Pages/BookDetailPage";
 import ShoppingCartPage from "./Pages/ShoppingCartPage";
 import Navbar from "./Components/Navbar";
+import Footer from "./Components/Footer";
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 					<Route path={`/shopping-cart`} element={<ShoppingCartPage />} />
 					<Route path='*' element={<NotFoundPage />} />
 				</Routes>
+				<Footer />
 			</BrowserRouter>
 			<ToastContainer
 				position='top-right'
