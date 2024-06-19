@@ -11,7 +11,7 @@ export type BookType = {
 	authors: string;
 	image: string;
 	url: string;
-	price: Number;
+	price: number;
 	soldOut: boolean;
 };
 

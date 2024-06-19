@@ -20,8 +20,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #0f0f0f;
-  color: #f0f0f0;
+  background: #f0f0f0;
+  color: #0f0f0f;
 }
 
 code {
@@ -31,4 +31,13 @@ code {
 
 .standart-transition {
   @apply transition-all ease-in-out duration-300
+}
+.book-inner-container {
+  @apply relative
+}
+.absolute-modal {
+  @apply -z-20 opacity-0 flex flex-col items-center justify-end bg-[rgba(0,0,0,0.1)] absolute flex-1 w-full h-full
+}
+.book-inner-container:hover > .absolute-modal {
+  @apply z-20 opacity-100
 }

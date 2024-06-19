@@ -1,11 +1,12 @@
 import axios, { HttpStatusCode } from "axios";
 import { axiosClient } from "../axiosClient";
+import { BOOK_SEARCH_API_URL } from "../constants";
 
 export const GetBooksService = async () => {
 	try {
 		const response = await axiosClient.get("");
 		return {
-			data: response.data.books,
+			data: response.data,
 			status: HttpStatusCode.Ok,
 		};
 	} catch (error) {
@@ -18,7 +19,7 @@ export const GetBooksService = async () => {
 
 export const GetBookDetailsByIdService = async (id: string) => {
 	try {
-		const response = await axios.get(`https://www.dbooks.org/api/book/${id}`);
+		const response = await axios.get(`${BOOK_SEARCH_API_URL}${id}`);
 		return {
 			data: response.data,
 			status: HttpStatusCode.Ok,
