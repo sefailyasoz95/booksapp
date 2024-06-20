@@ -71,8 +71,6 @@ const ShoppingCartPage = (props: Props) => {
 				<button onClick={handleBack}>
 					<ChevronLeftIcon className='w-7 h-7 standart-transition' />
 				</button>
-				<span className='font-bold text-lg tracking-wide'>Your Cart Details</span>
-				<div className='w-7 h-7' />
 			</div>
 			{shoppingCart.length === 0 ? (
 				<span>You have no items in your cart!</span>
@@ -88,6 +86,7 @@ const ShoppingCartPage = (props: Props) => {
 							delay: formStep === "cartDetails" ? 0.5 : 0,
 						}}
 						className='xl:w-1/2 lg:w-2/3 w-full'>
+						<span className='font-bold text-lg tracking-wide'>Your Cart Details</span>
 						<div className='border-b-2 border-b-black pb-5'>
 							{shoppingCart.map((item, index) => (
 								<div key={index} className='flex bg-white drop-shadow-lg px-2 py-1 rounded-xl my-3'>
