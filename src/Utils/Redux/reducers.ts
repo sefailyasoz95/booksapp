@@ -12,6 +12,7 @@ export const initialState: InitialState = {
 	loading: false,
 	bookDetail: undefined,
 	shoppingCart: [],
+	filteredBooks: undefined,
 };
 
 export const reducer = createSlice({
@@ -32,6 +33,18 @@ export const reducer = createSlice({
 		},
 		clearCartItems: (state) => {
 			state.shoppingCart = [];
+		},
+		searchBook: (state, action: PayloadAction<string | undefined>) => {
+			if (action.payload) {
+				let filtered = state.books.filter(
+					(item) =>
+						item.authors.toLowerCase().includes(action.payload!.toLowerCase()) ||
+						item.title.toLowerCase().includes(action.payload!.toLowerCase())
+				);
+				state.filteredBooks = filtered;
+			} else {
+				state.filteredBooks = undefined;
+			}
 		},
 	},
 	extraReducers: (builder) => {
@@ -66,6 +79,6 @@ export const reducer = createSlice({
 	},
 });
 
-export const { addItemToCart, deleteItemFromCart, clearCartItems } = reducer.actions;
+export const { addItemToCart, deleteItemFromCart, clearCartItems, searchBook } = reducer.actions;
 
 export default reducer.reducer;

@@ -7,7 +7,7 @@ import ListItem from "./ListItem";
 type Props = {};
 
 const BookListing = (props: Props) => {
-	const { books, loading } = useAppSelector((state) => state.global);
+	const { books, loading, filteredBooks } = useAppSelector((state) => state.global);
 	const dispatch = useAppDispatch();
 	useEffect(() => {
 		books.length === 0 && dispatch(getBooks());
@@ -33,9 +33,13 @@ const BookListing = (props: Props) => {
 				ease: "easeInOut",
 			}}
 			className='lg:w-10/12 w-11/12 flex-wrap rounded-2xl mt-5 bg-white drop-shadow-lg flex items-center py-5 justify-center'>
-			{books.map((book, index) => (
-				<ListItem book={book} index={index} key={index} />
-			))}
+			{filteredBooks &&
+				filteredBooks.length > 0 &&
+				filteredBooks.map((filtered, index) => <ListItem book={filtered} index={index} key={index} />)}
+			{filteredBooks && filteredBooks.length === 0 && (
+				<div className='text-center font-semibold text-lg text-red-600'>No result found for your search!</div>
+			)}
+			{!filteredBooks && books.map((book, index) => <ListItem book={book} index={index} key={index} />)}
 		</motion.div>
 	);
 };

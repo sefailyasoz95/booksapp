@@ -39,6 +39,7 @@ export type InitialState = {
 	error: boolean;
 	success: boolean;
 	books: Array<BookType>;
+	filteredBooks?: Array<BookType>;
 	bookDetail?: DetailedBookType;
 	shoppingCart: Array<ShoppingCartItemType>;
 };
