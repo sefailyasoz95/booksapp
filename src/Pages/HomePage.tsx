@@ -32,7 +32,7 @@ const HomePage = (props: Props) => {
 				<div className='flex items-center justify-center'>
 					<BookOpenIcon className='w-10 h-10' />
 					<span className='text-3xl'>
-						<b>20% OFF</b> on your 2nd item!
+						<b>20% OFF</b> at the checkout if you buy more than 2 books!
 					</span>
 					<BookOpenIcon className='w-10 h-10' />
 				</div>

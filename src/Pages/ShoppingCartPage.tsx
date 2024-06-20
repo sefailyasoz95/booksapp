@@ -16,13 +16,22 @@ const ShoppingCartPage = (props: Props) => {
 	const [formStep, setFormStep] = useState<"cartDetails" | "checkout">("cartDetails");
 	const { showToast } = useToast();
 	const cartTotal = useMemo(() => {
-		let total = shoppingCart.reduce((accumulator, currentItem) => {
+		let discount = 0;
+		let total = shoppingCart.reduce((accumulator, currentItem, index) => {
+			// TODO: CALCULATE 20% DISCOUNT FOR 2ND ITEM
 			const { item, quantity } = currentItem;
 			const { price } = item;
-			return accumulator + price * quantity;
-		}, 0);
+			console.log("index: ", index);
 
-		return total;
+			discount = (index > 1 ? price * 0.2 : 0) + discount;
+			let _price = (index + 1) % 3 === 0 ? price - price * 0.2 : price;
+			console.log("_price: ", _price);
+
+			return accumulator + _price * quantity;
+		}, 0);
+		console.log("discount: ", discount);
+
+		return { total, discount };
 	}, [shoppingCart]);
 	const handleQuantityDecrease = (book: BookType) => {
 		const itemIndex = shoppingCart.findIndex((item) => item.item.id === book.id);
@@ -46,7 +55,7 @@ const ShoppingCartPage = (props: Props) => {
 				duration: 0.8,
 				ease: "easeInOut",
 			}}
-			className='lg:w-10/12 w-11/12 gap-y-3 lg:px-0 px-2 h-screen rounded-2xl mt-5 bg-white drop-shadow-lg mx-auto flex flex-col items-center py-5'>
+			className='lg:w-10/12 w-11/12 gap-y-3 lg:px-0 px-2 min-h-screen rounded-2xl mt-5 bg-white h-fit drop-shadow-lg mx-auto flex flex-col items-center py-5'>
 			<div className='w-full px-5 flex flex-row items-center justify-between'>
 				<button onClick={handleBack}>
 					<ChevronLeftIcon className='w-7 h-7 standart-transition' />
@@ -103,9 +112,21 @@ const ShoppingCartPage = (props: Props) => {
 							))}
 						</div>
 						<div className='flex items-center gap-x-10 mt-5 w-full justify-between'>
-							<span className='text-xl'>
-								<b>Total:</b> {cartTotal.toFixed(2)}$
-							</span>
+							<div className='flex flex-col'>
+								{cartTotal.discount > 0 && (
+									<span className='text-red-600'>
+										<b>Subtotal:</b> {(cartTotal.total + cartTotal.discount).toFixed(2)}$
+									</span>
+								)}
+								{cartTotal.discount > 0 && (
+									<span className='text-red-600'>
+										<b>Discount:</b> {cartTotal.discount.toFixed(2)}$
+									</span>
+								)}
+								<span className='text-xl'>
+									<b>Grand Total:</b> {cartTotal.total.toFixed(2)}$
+								</span>
+							</div>
 							<button
 								className='animate-shimmer transition-colors self-center px-7 drop-shadow-lg text-white font-medium text-xl py-1 rounded-lg bg-[linear-gradient(110deg,#000103,45%,#4f5a6e,55%,#000103)] bg-[length:200%_100%]'
 								onClick={() => setFormStep("checkout")}>
@@ -146,7 +167,7 @@ const ShoppingCartPage = (props: Props) => {
 								className='px-2 py-1 border-2 rounded-xl w-1/2 outline-none right-0 border-black focus:border-green-700 standart-transition'
 							/>
 							<span className='text-xl'>
-								<b>You will pay:</b> {cartTotal.toFixed(2)}$
+								<b>You will pay:</b> {cartTotal.total.toFixed(2)}$
 							</span>
 							<button
 								className='animate-shimmer transition-colors self-center px-7 drop-shadow-lg text-white font-medium text-xl py-1 rounded-lg bg-[linear-gradient(110deg,#000103,45%,#4f5a6e,55%,#000103)] bg-[length:200%_100%]'
