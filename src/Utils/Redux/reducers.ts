@@ -1,8 +1,7 @@
-import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { InitialState, BookType, DetailedBookType, APIResponseType, ShoppingCartItemType } from "../types";
 import { getBookDetailsById, getBooks } from "./actions";
 import { HttpStatusCode } from "axios";
-const userInfo = localStorage.getItem("dontStoreUserInfoLikeThat");
 
 export const initialState: InitialState = {
 	error: false,

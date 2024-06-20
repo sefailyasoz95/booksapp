@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 type Props = {};
@@ -14,7 +14,7 @@ const NotFoundPage = (props: Props) => {
 
 	return (
 		<div className='w-7xl h-screen flex items-center justify-center'>
-			<span className='text-4xl animate-bounce'>What you're looking for is not here, sorry!</span>
+			<span className='text-4xl'>What you're looking for is not here, sorry!</span>
 		</div>
 	);
 };
