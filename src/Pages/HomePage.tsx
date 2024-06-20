@@ -46,7 +46,7 @@ const HomePage = (props: Props) => {
 				}}
 				className='lg:w-10/12 w-11/12 gap-y-3 rounded-2xl mt-5 py-5 px-3 bg-white drop-shadow-lg flex flex-col items-center justify-center'>
 				<span className='text-3xl border-b-2 border-black'>More you buy, more you earn!</span>
-				<div className='flex items-center justify-center'>
+				<div className='flex items-center justify-center text-center gap-x-2'>
 					<BookOpenIcon className='w-10 h-10' />
 					<span className='text-3xl'>
 						<b>20% OFF</b> at the checkout if you buy more than 2 books!
