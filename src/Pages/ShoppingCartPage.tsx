@@ -57,7 +57,7 @@ const ShoppingCartPage = (props: Props) => {
 			navigate("/");
 		}, 1000);
 	};
-
+	// react-toolkit-query
 	return (
 		<motion.div
 			initial={{ opacity: 0, x: -50 }}
